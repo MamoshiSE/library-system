@@ -2,14 +2,14 @@ package Libary;
 
 public class Address {
 	
-	private String streetNum;
-	private String zipCode;
+	private int streetNum;
+	private int zipCode;
 	private String city;
 	private String country;
 	
 
 
-	public Address(String streetName, String streetNum, String zipCode, String city, String country) {
+	public Address(String streetName, int streetNum, int zipCode, String city, String country) {
 		StreetName = streetName;
 		this.streetNum = streetNum;
 		this.zipCode = zipCode;
@@ -30,25 +30,25 @@ public class Address {
 
 
 
-	public String getStreetNum() {
+	public int getStreetNum() {
 		return streetNum;
 	}
 
 
 
-	public void setStreetNum(String streetNum) {
+	public void setStreetNum(int streetNum) {
 		this.streetNum = streetNum;
 	}
 
 
 
-	public String getZipCode() {
+	public int getZipCode() {
 		return zipCode;
 	}
 
 
 
-	public void setZipCode(String zipCode) {
+	public void setZipCode(int zipCode) {
 		this.zipCode = zipCode;
 	}
 
