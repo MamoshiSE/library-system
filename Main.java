@@ -13,7 +13,7 @@ public class Main {
 	
 		public static void main(String[] args) {
 			
-			Scanner input = new Scanner(System.in);
+			/*Scanner input = new Scanner(System.in);
 			
 			
 			System.out.println("Register customers's name?");
@@ -39,9 +39,17 @@ public class Main {
 			String city = input.nextLine();
 			
 			System.out.println("Customer's Street Name?");
-			String country = input.nextLine();
+			String country = input.nextLine(); */
+			
+			Customer customer1 = new Customer("Maho", 073, "testser", 53, 22, "esrsr", "Sweden");
+			System.out.println(customer1.getName());
+			System.out.println(customer1.getLibaryCard());
+			
+			Customer customer3 = new Customer("test", 073, "ertrts", 31, 343, "erser", "mgm");
+			System.out.println(customer3.getName());
+			System.out.println(customer3.getLibaryCard());
 
-			addCustomer(name, libaryCard, phoneNumber, streetName, streetNum, zipCode, city, country);
+			// addCustomer("Maho", 1, 073, "Streetname", 31, 222, "Gothenburg", "Sweden");
 }
 		
 		
