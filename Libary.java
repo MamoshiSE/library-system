@@ -15,9 +15,9 @@ public class Libary {
 
 	}
 	
-	public void addCustomer(String name, int libaryCard, int phoneNumber, String streetName, String streetNum, String zipCode, String city, String country) {
+	public void addCustomer(String name, int phoneNumber, String streetName, int streetNum, int zipCode, String city, String country) {
 
-		Customer cus = new Customer(name, libaryCard, phoneNumber, streetName, streetNum, zipCode, city, country);
+		Customer cus = new Customer(name, phoneNumber, streetName, streetNum, zipCode, city, country);
 		
 			this.customers.add(cus);
 
