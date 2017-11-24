@@ -1,7 +1,9 @@
 package Libary;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Customer {
-	
+	public static AtomicInteger count = new AtomicInteger(0);
 	private String name;
 	private int libaryCard;
 	private int phoneNumber;
@@ -9,9 +11,9 @@ public class Customer {
 	
 
 
-Customer (String name, int libaryCard, int phoneNumber, String streetName, String streetNum, String zipCode, String city, String country) {
+Customer (String name, int phoneNumber, String streetName, int streetNum, int zipCode, String city, String country) {
 	this.name = name;
-	this.libaryCard = libaryCard;
+	this.libaryCard = count.incrementAndGet();
 	this.phoneNumber = phoneNumber;
 	this.address = new Address(streetName, streetNum, zipCode, city, country);
 
