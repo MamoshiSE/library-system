@@ -1,5 +1,6 @@
 package Libary;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Customer {
@@ -8,6 +9,9 @@ public class Customer {
 	private int libaryCard;
 	private int phoneNumber;
 	private Address address;
+	private ArrayList<Books> bookHistory;
+	ArrayList<Books> loanedBooks;
+
 	
 
 
@@ -16,44 +20,112 @@ Customer (String name, int phoneNumber, String streetName, int streetNum, int zi
 	this.libaryCard = count.incrementAndGet();
 	this.phoneNumber = phoneNumber;
 	this.address = new Address(streetName, streetNum, zipCode, city, country);
+	this.bookHistory = null;
+	this.loanedBooks = null;
+	
 
 }
 
 
-	public String getName() {
-		return name;
-	}
+
+
+public static AtomicInteger getCount() {
+	return count;
+}
 
 
 
-	public void setName(String name) {
-		this.name = name;
-	}
+
+public static void setCount(AtomicInteger count) {
+	Customer.count = count;
+}
 
 
 
-	public int getLibaryCard() {
-		return libaryCard;
-	}
+
+public String getName() {
+	return name;
+}
 
 
 
-	public void setLibaryCard(int libaryCard) {
-		this.libaryCard = libaryCard;
-	}
+
+public void setName(String name) {
+	this.name = name;
+}
 
 
 
-	public int getPhoneNumber() {
-		return phoneNumber;
-	}
+
+public int getLibaryCard() {
+	return libaryCard;
+}
 
 
 
-	public void setPhoneNumber(int phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
 
+public void setLibaryCard(int libaryCard) {
+	this.libaryCard = libaryCard;
+}
+
+
+
+
+public int getPhoneNumber() {
+	return phoneNumber;
+}
+
+
+
+
+public void setPhoneNumber(int phoneNumber) {
+	this.phoneNumber = phoneNumber;
+}
+
+
+
+
+public Address getAddress() {
+	return address;
+}
+
+
+
+
+public void setAddress(Address address) {
+	this.address = address;
+}
+
+
+
+
+public ArrayList<Books> getBookHistory() {
+	return bookHistory;
+}
+
+
+
+
+public void setBookHistory(ArrayList<Books> bookHistory) {
+	this.bookHistory = bookHistory;
+}
+
+
+
+
+public ArrayList<Books> getLoanedBooks() {
+	return loanedBooks;
+}
+
+
+
+
+public void setLoanedBooks(ArrayList<Books> loanedBooks) {
+	this.loanedBooks = loanedBooks;
+}
+
+
+	
 
 
 
