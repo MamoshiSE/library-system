@@ -1,56 +1,128 @@
 package Libary;
 
+import java.io.BufferedReader; 
+import java.io.File; 
+import java.io.FileNotFoundException; 
+import java.io.FileReader; 
+import java.io.IOException;
+
 import java.util.Scanner;
 
 
-
-
-
-
 public class Main {
+
 	Libary Customer = new Libary();
+	Libary Books = new Libary();
 	Scanner input = new Scanner(System.in);
 	
-		public static void main(String[] args) {
-			
-			/*Scanner input = new Scanner(System.in);
-			
-			
-			System.out.println("Register customers's name?");
 
-			String name = input.nextLine();
+	public void run() {
+		
+		int option;
 
-			System.out.println("Register Customers Libary Card ID?");
-			int libaryCard = input.nextInt();
+		do {
+			
+			menu();
+			System.out.print(" Type the option number: ");
 
-			System.out.println("Register Customer's phone Number?");
-			int phoneNumber = input.nextInt();
+			option = input.nextInt();
+			input.nextLine();
 
-			System.out.println("Customer's Street Name?");
-			String streetName = input.nextLine();
-			
-			System.out.println("Customer's Street Name?");
-			String streetNum = input.nextLine();
-			
-			System.out.println("Customer's Street Name?");
-			String zipCode = input.nextLine();
-			
-			System.out.println("Customer's Street Name?");
-			String city = input.nextLine();
-			
-			System.out.println("Customer's Street Name?");
-			String country = input.nextLine(); */
-			
-			Customer customer1 = new Customer("Maho", 073, "testser", 53, 22, "esrsr", "Sweden");
-			System.out.println(customer1.getName());
-			System.out.println(customer1.getLibaryCard());
-			
-			Customer customer3 = new Customer("test", 073, "ertrts", 31, 343, "erser", "mgm");
-			System.out.println(customer3.getName());
-			System.out.println(customer3.getLibaryCard());
+			switch (option) {
+			case 1:
+				registerCustomer();
+				break;
 
-			// addCustomer("Maho", 1, 073, "Streetname", 31, 222, "Gothenburg", "Sweden");
-}
+			case 2:
+				addBook();
+				break;
+
+			case 3:
+				Books.retrieveBookList();
+				break;
+			}
+
+		} while (option != 8);
 		
 		
+	}
+
+	
+
+	public static void menu() {
+		System.out.println(" ");
+		System.out.println(" === Welcome to the Libary System === ");
+		System.out.println(" Choose an option below: ");
+		System.out.println(" ");
+		System.out.println(" 1. Register a customer. ");
+		System.out.println(" 2. Register a book. ");
+		System.out.println(" 3. Retrieve book list. ");
+
+	}
+
+	public void registerCustomer() {
+		Scanner input = new Scanner(System.in);
+
+		System.out.println("Register customers's name?");
+		String name = input.nextLine();
+
+		System.out.println("Register Customer's phone Number?");
+		int phoneNumber = input.nextInt();
+		System.out.println("Customer's Street Name?");
+		String streetName = input.nextLine();
+
+		System.out.println("Customer's Street Number?");
+		int streetNum = input.nextInt();
+
+		System.out.println("Customer's Zip Code?");
+		int zipCode = input.nextInt();
+
+		System.out.println("Customer's City?");
+		String city = input.nextLine();
+
+		System.out.println("Customer's Country?");
+		String country = input.nextLine();
+
+		Customer.addCustomer(name, phoneNumber, streetName, streetNum, zipCode, city, country);
+	}
+
+	public void addBook() {
+		System.out.println("Register book title?");
+		String title = input.nextLine();
+
+		System.out.println("What's the name of the author?");
+		String author = input.nextLine();
+
+		System.out.println("What genre is it?");
+		String genre = input.nextLine();
+
+		System.out.println("Name of the publisher?");
+		String publisher = input.nextLine();
+
+		System.out.println("Which book shelf is it in?");
+		char shelf = input.next().charAt(0);
+
+		Books.addBook(title, author, genre, publisher, shelf);
+
+	}
+	
+	public static void readFileLineByLine(String fileName) { 
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) { 
+			String line = br.readLine(); 
+			while (line != null) { 
+				System.out.println(line); 
+				line = br.readLine(); } } 
+		catch (IOException e) { 
+			e.printStackTrace(); 
+			} 
+		}
+
+
+	
+
+	public static void main(String[] args) {
+		Main program = new Main();
+		program.run();
+	}
+
 }
