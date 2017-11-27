@@ -128,17 +128,7 @@ public class Main {
 
 	}
 
-	public static void readFileLineByLine(String fileName) {
-		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-			String line = br.readLine();
-			while (line != null) {
-				System.out.println(line);
-				line = br.readLine();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	public static void main(String[] args) {
 		Main program = new Main();
