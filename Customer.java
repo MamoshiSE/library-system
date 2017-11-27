@@ -20,8 +20,8 @@ Customer (String name, int phoneNumber, String streetName, int streetNum, int zi
 	this.libaryCard = count.incrementAndGet();
 	this.phoneNumber = phoneNumber;
 	this.address = new Address(streetName, streetNum, zipCode, city, country);
-	this.bookHistory = null;
-	this.loanedBooks = null;
+	this.bookHistory = new ArrayList<Books>();
+	this.loanedBooks = new ArrayList<Books>();
 	
 
 }
@@ -120,8 +120,9 @@ public ArrayList<Books> getLoanedBooks() {
 
 
 
-public void setLoanedBooks(ArrayList<Books> loanedBooks) {
-	this.loanedBooks = loanedBooks;
+public void addLoanedBooks(Books loanedBook) {
+	
+	loanedBooks.add(loanedBook);
 }
 
 
