@@ -35,8 +35,50 @@ public class Libary {
 		}
 	}
 	
-	public void BorrowBook(String name)
-	{
-		// this.customers.setName(name);
+	public void retrieveBorrowedBookList() {
+		for (int i = 0; i < borrowedBooks.size(); i++) {
+			System.out.print(borrowedBooks.get(i).getTitle());
+			System.out.print("test");
+
+		}
 	}
+	
+	public void retrieveCustomerHistory(int libraryCard) {
+		for (int i = 0; i < customers.size(); i++) {
+			if (customers.get(i).getLibaryCard() == (libraryCard)) {
+				System.out.println(this.customers.get(i).getBookHistory());
+			}
+		}
+	}
+	
+	
+	
+	public void borrowBook(int bookId) {
+		for (int i = 0; i < books.size(); i++) {
+			if (books.get(i).getId() == (bookId)) {
+				borrowedBooks.add(books.get(i));
+				books.remove(i);				
+			}
+		}
+		
+		/*for (int i = 0; i < customers.size(); i++) {
+			if (customers.get(i).getLibaryCard() == (libaryCard)) {
+				for (int j = 0; j < books.size(); j++) {
+					if (books.get(j).getId() == (bookId)) {
+						
+						borrowedBooks.add(books.get(j));
+						customers.get(i).addLoanedBooks(books.get(j));
+						
+						// books.remove(j);
+					} else {
+						System.out.println("Cant find book");
+					}
+					}
+			} else {
+				System.out.println("Cant find customer");
+			}
+			
+		} */
+		
+	} 
 }
