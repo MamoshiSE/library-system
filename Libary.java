@@ -19,7 +19,7 @@ public class Libary {
 			String country) {
 
 		Customer cus = new Customer(name, phoneNumber, streetName, streetNum, zipCode, city, country);
-
+		
 		this.customers.add(cus);
 
 	}
@@ -38,47 +38,115 @@ public class Libary {
 	public void retrieveBorrowedBookList() {
 		for (int i = 0; i < borrowedBooks.size(); i++) {
 			System.out.print(borrowedBooks.get(i).getTitle());
-			System.out.print("test");
 
 		}
 	}
 	
 	public void retrieveCustomerHistory(int libraryCard) {
-		for (int i = 0; i < customers.size(); i++) {
-			if (customers.get(i).getLibaryCard() == (libraryCard)) {
-				System.out.println(this.customers.get(i).getBookHistory());
+		
+			if (checkCustomerId(libraryCard) == true) {
+				
+				
+					System.out.println(this.customers.get(customerIndex(libraryCard)).getLoanedBooks().toString());
+					System.out.println("empty");
+				
 			}
-		}
+				
+			 else {
+				System.out.println("does not exist");
+
+			}
 	}
 	
 	
 	
-	public void borrowBook(int bookId) {
-		for (int i = 0; i < books.size(); i++) {
-			if (books.get(i).getId() == (bookId)) {
-				borrowedBooks.add(books.get(i));
-				books.remove(i);				
-			}
-		}
+	
+	public void borrowBook(int libraryCard, int bookId) {
 		
-		/*for (int i = 0; i < customers.size(); i++) {
-			if (customers.get(i).getLibaryCard() == (libaryCard)) {
-				for (int j = 0; j < books.size(); j++) {
-					if (books.get(j).getId() == (bookId)) {
-						
-						borrowedBooks.add(books.get(j));
-						customers.get(i).addLoanedBooks(books.get(j));
-						
-						// books.remove(j);
-					} else {
-						System.out.println("Cant find book");
-					}
-					}
+		/* 	if (checkbookId(bookId) == true) {
+				
+				borrowedBooks.add(books.get(bookIndex(bookId)));
+				System.out.println("Book borrowed");
+				books.remove(bookIndex(bookId));	
+				
 			} else {
-				System.out.println("Cant find customer");
+				System.out.println("not found");
+
 			}
-			
 		} */
 		
-	} 
+		
+		//	if (checkCustomerId(libraryCard) == true) {
+			//	if (checkbookId(bookId) == true) {
+					
+						borrowedBooks.add(books.get(bookIndex(bookId)));
+						customers.get(customerIndex(libraryCard)).loanedBooks.add(books.get(bookIndex(bookId)));;
+						System.out.println("Book borrowed");
+						books.remove(bookIndex(bookId));
+				//	} else {
+			//			System.out.println("Cant find book");
+				//	}
+					
+		//	} else {
+		
+		//		System.out.println("Cant find customer");
+		//	}
+			
+		} 
+		
+		
+		
+	
+	
+	public boolean checkCustomerId (int libaryCard) {
+		boolean check = false;
+		for (int i = 0; i < customers.size(); i++) {
+
+			if (customers.get(i).getLibaryCard() == libaryCard) {
+				check = true;
+
+			}
+
+		}
+		return check;
+	}
+	
+	public int customerIndex(int libaryCard) {
+
+		for (int i = 0; i < customers.size(); i++) {
+
+			if (customers.get(i).getLibaryCard() == libaryCard) {
+				return i;
+
+			}
+
+		}
+		return -1;
+	}
+	
+	public boolean checkbookId (int bookId) {
+		boolean check = false;
+		for (int i = 0; i < books.size(); i++) {
+
+			if (books.get(i).getId() == bookId) {
+				check = true;
+
+			}
+
+		}
+		return check;
+	}
+	
+	public int bookIndex(int bookId) {
+
+		for (int i = 0; i < books.size(); i++) {
+
+			if (books.get(i).getId() == bookId) {
+				return i;
+
+			}
+
+		}
+		return -1;
+	}
 }
