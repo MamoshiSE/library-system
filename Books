@@ -2,7 +2,6 @@ package Libary;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-/* It should be possible to add new books to the directory (title, author, genre, publisher, shelf)*/
 
 public class Books {
 	private String title;
@@ -10,7 +9,8 @@ public class Books {
 	private String genre;
 	private String publisher;
 	private char shelf;
-	private int id;
+	private int bookId;
+	private int counter;
 	public static AtomicInteger count = new AtomicInteger(0);
 
 	
@@ -21,9 +21,26 @@ public class Books {
 		this.genre = genre;
 		this.publisher = publisher;
 		this.shelf = shelf;
-		this.id = count.incrementAndGet();
+		this.bookId = count.incrementAndGet();
+		this.counter = 0;
 	}
 	
+	public int getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+
+	public int getCounter() {
+		return counter;
+	}
+
+	public void addCounter() {
+		this.counter = counter + 1;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -73,11 +90,17 @@ public class Books {
 	}
 
 	public int getId() {
-		return id;
+		return bookId;
+	}
+
+	@Override
+	public String toString() {
+		return "Books [title=" + title + ", author=" + author + ", genre=" + genre + ", publisher=" + publisher
+				+ ", shelf=" + shelf + ", bookId=" + bookId + "]";
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.bookId = id;
 	}
 
 
