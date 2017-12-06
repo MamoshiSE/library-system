@@ -15,7 +15,11 @@ public class Main {
 	Scanner input = new Scanner(System.in);
 
 	public void run() {
-
+		
+		Books.addBook("Hej", "Hej", "Hej", "Hej", 'h');
+		Books.addBook("test", "Hej", "Hej", "Hej", 'h');
+		Customer.addCustomer("Maho", 1, "test", 1, 1, "ok", "test");
+		Customer.addCustomer("kikyu", 1, "test", 1, 1, "ok", "test");
 		int option;
 
 		do {
@@ -36,31 +40,38 @@ public class Main {
 				break;
 
 			case 3:
-				Books.retrieveBookList();
+				borrowBook();
+				
 				break;
 
 			case 4:
-
-				Books.retrieveBorrowedBookList();
+				returnBook();
+				
 				break;
 				
 			case 5:
-				//System.out.println("What's your libary card ID?");
-				//int libaryId = input.nextInt();
+				Books.retrieveBookList();
+				break; 
 				
-				System.out.println("What's the ID of the book you want to borrow?");
-				int bookID = input.nextInt();
-				Books.borrowBook(bookID);
-				break;
 				
 			case 6: 
+				Books.retrieveBorrowedBookList();
+				break;
+				
+				
+			case 7: 
 				System.out.println("What's the customers libary ID?");
 				int libraryCard = input.nextInt();
-				Books.retrieveCustomerHistory(libraryCard);
+				Customer.retrieveCustomerHistory(libraryCard);
+				break;
+				
+				
+			case 8: 
+				Books.bookStatistics();
 				break;
 			}
 
-		} while (option != 8);
+		} while (option != 9);
 
 	}
 
@@ -71,10 +82,13 @@ public class Main {
 		System.out.println(" ");
 		System.out.println(" 1. Register a customer. ");
 		System.out.println(" 2. Register a book. ");
-		System.out.println(" 3. Retrieve book list. ");
-		System.out.println(" 4. Retrieve borrowed book list. ");
-		System.out.println(" 5. Borrow a book. ");
-		System.out.println(" 6. Retrieve customer book history. ");
+		System.out.println(" 3. Borrow book. ");
+		System.out.println(" 4. Return book. ");
+		System.out.println(" 5. Retrieve book list. ");
+		System.out.println(" 6. Retrieve borrowed book list. ");
+		System.out.println(" 7. Retrieve customer book history. ");
+		System.out.println(" 8. Most borrowed books ");
+		
 
 	}
 
@@ -126,6 +140,43 @@ public class Main {
 
 		Books.addBook(title, author, genre, publisher, shelf);
 
+	}
+	
+	public void borrowBook() {
+		System.out.println("What's your libary card ID?");
+		int libraryCard = input.nextInt();
+		
+		System.out.println("What's the ID of the book you want to borrow?");
+		int bookId = input.nextInt();
+		input.nextLine();
+
+		
+		if (Customer.checkCustomerId(libraryCard) == true) {
+			if (Books.checkbookId(bookId) == true) {
+				Customer.retrieveCustomerObject(libraryCard).addLoanedBooks(Books.retrieveBookObject(bookId));;
+				System.out.println("The book: " + Books.retrieveBookObject(bookId).getTitle() + " has been borrowed by the customer: " + Customer.retrieveCustomerObject(libraryCard).getName());
+				Books.addBorrowedBook(bookId);
+				
+			}
+			else {
+				System.out.println("Book not found");
+			}
+		}  else {
+			System.out.println("Customer not found");
+
+		}
+	}
+	
+	public void returnBook() {
+		System.out.println("What's the customers libary ID?");
+		int libraryCard = input.nextInt();
+		
+		System.out.println("What's the ID of the book you want to return?");
+		int bookId = input.nextInt();
+		input.nextLine();
+		Books.returnBorrowedBook(bookId);
+		Customer.retrieveCustomerObject(libraryCard).getLoanedBooks().remove(Customer.customerBookIndex(libraryCard, bookId));
+		System.out.println("Book has been returned");
 	}
 
 
