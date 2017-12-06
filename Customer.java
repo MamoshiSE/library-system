@@ -10,7 +10,7 @@ public class Customer {
 	private int phoneNumber;
 	private Address address;
 	private ArrayList<Books> bookHistory;
-	ArrayList<Books> loanedBooks;
+	 ArrayList<Books> loanedBooks;
 
 	
 
