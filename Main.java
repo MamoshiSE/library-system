@@ -1,10 +1,6 @@
 package Libary;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
 
 import java.util.Scanner;
 
@@ -16,10 +12,13 @@ public class Main {
 
 	public void run() {
 		
-		Books.addBook("Hej", "Hej", "Hej", "Hej", 'h');
-		Books.addBook("test", "Hej", "Hej", "Hej", 'h');
-		Customer.addCustomer("Maho", 1, "test", 1, 1, "ok", "test");
-		Customer.addCustomer("kikyu", 1, "test", 1, 1, "ok", "test");
+		
+		Customer.addCustomer("Rakel", "03728409045", "Bygget", 82, 34013, "Ljungby", "Sweden");
+		Customer.addCustomer("Esra", "01255223130", "Hagaskog", 89, 61024, "Östergötland", "Sweden");
+		Books.addBook("Think and Grow Rich","Napoleon Hill", "Self-help", "The Ralston Society", 'S');
+		Books.addBook("Outliers", "Malcolm Gladwell", "Psychology", "Little, Brown and Company", 'P');
+		Books.addBook("The Catcher in the Rye","J.D Salinger", "Realistic Fiction", "Little, Brown and Company", 'R');
+		Books.addBook("The Lord of the Rings", "J. R. R. Tolkien", "Fantasy", "Allen & Unwin", 'F');
 		int option;
 
 		do {
@@ -55,7 +54,9 @@ public class Main {
 				
 				
 			case 6: 
-				Books.retrieveBorrowedBookList();
+				
+				Books.retrieveDelayedBookList();
+
 				break;
 				
 				
@@ -85,7 +86,7 @@ public class Main {
 		System.out.println(" 3. Borrow book. ");
 		System.out.println(" 4. Return book. ");
 		System.out.println(" 5. Retrieve book list. ");
-		System.out.println(" 6. Retrieve borrowed book list. ");
+		System.out.println(" 6. Retrieve delayed book list");
 		System.out.println(" 7. Retrieve customer book history. ");
 		System.out.println(" 8. Most borrowed books ");
 		
@@ -99,8 +100,7 @@ public class Main {
 		String name = input.nextLine();
 
 		System.out.println("Register Customer's phone Number?");
-		int phoneNumber = input.nextInt();
-		input.nextLine();
+		String phoneNumber = input.nextLine();
 		
 		System.out.println("Customer's Street Name?");
 		String streetName = input.nextLine();
@@ -153,11 +153,16 @@ public class Main {
 		
 		if (Customer.checkCustomerId(libraryCard) == true) {
 			if (Books.checkbookId(bookId) == true) {
+				if(Books.retrieveBookObject(bookId).getStatus() == "Available") {
 				Customer.retrieveCustomerObject(libraryCard).addLoanedBooks(Books.retrieveBookObject(bookId));;
-				System.out.println("The book: " + Books.retrieveBookObject(bookId).getTitle() + " has been borrowed by the customer: " + Customer.retrieveCustomerObject(libraryCard).getName());
+				System.out.println("(Book ID: " + bookId + ") " + Books.retrieveBookObject(bookId).getTitle() + " has been borrowed by the customer: " + Customer.retrieveCustomerObject(libraryCard).getName() + " (Customer ID: " + libraryCard +")");
+				System.out.println("Book should be returned: " + Books.returnDate(bookId));
 				Books.addBorrowedBook(bookId);
-				
-			}
+				}
+				else {
+					System.out.println("Book is currently borrowed");
+				}
+			} 
 			else {
 				System.out.println("Book not found");
 			}
@@ -174,9 +179,15 @@ public class Main {
 		System.out.println("What's the ID of the book you want to return?");
 		int bookId = input.nextInt();
 		input.nextLine();
-		Books.returnBorrowedBook(bookId);
-		Customer.retrieveCustomerObject(libraryCard).getLoanedBooks().remove(Customer.customerBookIndex(libraryCard, bookId));
-		System.out.println("Book has been returned");
+		int lateDays = Books.returnBorrowedBook(bookId);
+		if (lateDays > 0) {
+			Customer.retrieveCustomerObject(libraryCard).ChargeCustomer(Books.returnBorrowedBook(bookId));
+			System.out.println("The book was returned " + lateDays + " days after due date.");
+			System.out.println("The customer will have to pay: " + Customer.retrieveCustomerObject(libraryCard).getDebit() + " SEK fee.");
+		}
+		
+		Books bookInfo = Books.retrieveBookObject(bookId);
+		System.out.println("(Book ID: " + bookId + ") " + bookInfo.getTitle() + ", by " + bookInfo.getAuthor() + " has been returned to the library.");
 	}
 
 
