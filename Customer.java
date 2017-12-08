@@ -7,25 +7,36 @@ public class Customer {
 	public static AtomicInteger count = new AtomicInteger(0);
 	private String name;
 	private int libaryCard;
-	private int phoneNumber;
+	private String phoneNumber;
 	private Address address;
 	private ArrayList<Books> bookHistory;
+	private int debit;
+	private static final int DELAY_FEE = 2; 
 	 ArrayList<Books> loanedBooks;
 
 	
 
 
-Customer (String name, int phoneNumber, String streetName, int streetNum, int zipCode, String city, String country) {
+Customer (String name, String phoneNumber, String streetName, int streetNum, int zipCode, String city, String country) {
 	this.name = name;
 	this.libaryCard = count.incrementAndGet();
 	this.phoneNumber = phoneNumber;
 	this.address = new Address(streetName, streetNum, zipCode, city, country);
 	this.bookHistory = new ArrayList<Books>();
 	this.loanedBooks = new ArrayList<Books>();
+	this.debit = 0;
 	
 
 }
 
+public void ChargeCustomer(long days)
+{
+	debit += DELAY_FEE * days;
+}
+
+public int getDebit() {
+	return debit;
+}
 
 
 
@@ -71,16 +82,14 @@ public void setLibaryCard(int libaryCard) {
 
 
 
-public int getPhoneNumber() {
+public String getPhoneNumber() {
 	return phoneNumber;
 }
 
 
 
 
-public void setPhoneNumber(int phoneNumber) {
-	this.phoneNumber = phoneNumber;
-}
+
 
 
 
@@ -92,9 +101,7 @@ public Address getAddress() {
 
 
 
-public void setAddress(Address address) {
-	this.address = address;
-}
+
 
 
 
@@ -125,9 +132,30 @@ public void addLoanedBooks(Books loanedBook) {
 	loanedBooks.add(loanedBook);
 }
 
-
+@Override
+public String toString() {
+	String info = "";
+	info += "\n";
+	info += "Customer has been registered: " + "\n";
+	info += "Name: " + name + "\n";
+	info += "Library Card ID: " + libaryCard + "\n";
+	info += "Address: " + address + "\n";
+	info += "Phone Number: " + phoneNumber;
+	return info;
+}
 	
-
+public String customerInformation() {
+	String info = "";
+	info += "\n";
+	info += "Customer Information: " + "\n";
+	info += "Name: " + name + " (ID: " + libaryCard + ")" + "\n";
+	info += "Address: " + address + "\n";
+	info += "Phone Number: " + phoneNumber + "\n";
+	info += "Total Debit: " + debit + " SEK \n";
+	info += "Loan History: \n";
+	
+	return info;
+}
 
 
 }
