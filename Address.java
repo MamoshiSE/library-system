@@ -2,6 +2,7 @@ package Libary;
 
 public class Address {
 	
+	private String streetName;
 	private int streetNum;
 	private int zipCode;
 	private String city;
@@ -10,7 +11,7 @@ public class Address {
 
 
 	public Address(String streetName, int streetNum, int zipCode, String city, String country) {
-		StreetName = streetName;
+		this.streetName = streetName;
 		this.streetNum = streetNum;
 		this.zipCode = zipCode;
 		this.city = city;
@@ -76,7 +77,9 @@ public class Address {
 		this.country = country;
 	}
 
-
+	public String toString() {
+		return streetName + " " +streetNum +", "  + zipCode + " " + city;
+	}
 
 	
 }
