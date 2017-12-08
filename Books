@@ -1,6 +1,7 @@
 package Libary;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Date;
 
 
 public class Books {
@@ -11,7 +12,11 @@ public class Books {
 	private char shelf;
 	private int bookId;
 	private int counter;
+	private String status;
+	private long borrowDate;
 	public static AtomicInteger count = new AtomicInteger(0);
+	private final int DAYS = 1000 * 60 * 60 * 24; 
+
 
 	
 	
@@ -23,6 +28,15 @@ public class Books {
 		this.shelf = shelf;
 		this.bookId = count.incrementAndGet();
 		this.counter = 0;
+		this.status = "Available";
+		this.borrowDate = 0;
+		
+	}
+	
+	public long getBorrowDate() {
+		Date date = new Date();
+		borrowDate = date.getTime() / DAYS; // Returns the amount of miliseconds since 1970 - when divided by "DAYS" it convers to amount of days.
+		return borrowDate;
 	}
 	
 	public int getBookId() {
@@ -93,15 +107,40 @@ public class Books {
 		return bookId;
 	}
 
-	@Override
-	public String toString() {
-		return "Books [title=" + title + ", author=" + author + ", genre=" + genre + ", publisher=" + publisher
-				+ ", shelf=" + shelf + ", bookId=" + bookId + "]";
-	}
 
 	public void setId(int id) {
 		this.bookId = id;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+	public void setBorrowDate(int borrowDate) {
+		this.borrowDate = borrowDate;
+	}
+
+	@Override
+	public String toString() {
+		String info = "";
+		info += "\n";
+		info += "Book has been registered: " + "\n";
+		info += "Title: " + title + "\n";
+		info += "Book ID: " + bookId + "\n";
+		info += "Author: " + author + "\n";
+		info += "Genre: " + genre + "\n";
+		info += "Book Shelf: " + shelf;
+		return info;
+		
+		
+	}
+	
 
 
 }
